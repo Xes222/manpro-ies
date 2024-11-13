@@ -1,0 +1,10 @@
+@forward 'font';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS tambahan */
+body {
+  font-family: 'Sen', sans-serif;
+}
