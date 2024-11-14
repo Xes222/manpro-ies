@@ -50,6 +50,14 @@ const routes = [
     path: '/addMenu',
     name: 'addMenu',
     component: FormMenu,
+    beforeEnter: (to, from, next) => {
+      const userStore = useUserStore() // Mengambil data user dari store Pinia
+      if (userStore.role === 'admin') {
+        next() // Lanjutkan ke route jika pengguna adalah admin
+      } else {
+        next('/') // Redirect ke halaman lain jika bukan admin
+      }
+    },
   },
   {
     path: '/listMenu',

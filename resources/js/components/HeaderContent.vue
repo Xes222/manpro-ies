@@ -19,6 +19,9 @@
       <li>
         <router-link to="/contact" class="text-black hover:text-x-yellow transition duration-150 ease-in-out">Contact Us</router-link>
       </li>
+      <li>
+        <router-link to="/addmenu" class="text-black hover:text-x-yellow transition duration-150 ease-in-out">Add Menu</router-link>
+      </li>
     </ul>
     <router-link to="/login" class="bg-red-200 px-4 py-2 rounded-full text-black hover:bg-x-yellow transition duration-150 ease-in-out">Login</router-link>
   </nav>
