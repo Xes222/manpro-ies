@@ -47,18 +47,23 @@ const routes = [
     component: ContactView,
   },
   {
-    path: '/addMenu',
-    name: 'addMenu',
+    path: '/addmenu',
+    name: 'addmenu',
     component: FormMenu,
-    beforeEnter: (to, from, next) => {
-      const userStore = useUserStore() // Mengambil data user dari store Pinia
-      if (userStore.role === 'admin') {
-        next() // Lanjutkan ke route jika pengguna adalah admin
-      } else {
-        next('/') // Redirect ke halaman lain jika bukan admin
-      }
-    },
   },
+  // {
+  //   path: '/addMenu',
+  //   name: 'addMenu',
+  //   // component: FormMenu,
+  //   // beforeEnter: (to, from, next) => {
+  //   //   const userStore = useUserStore() // Mengambil data user dari store Pinia
+  //   //   if (userStore.role === 'admin') {
+  //   //     next() // Lanjutkan ke route jika pengguna adalah admin
+  //   //   } else {
+  //   //     next('/') // Redirect ke halaman lain jika bukan admin
+  //   //   }
+  //   // },
+  // },
   {
     path: '/listMenu',
     name: 'listMenu',

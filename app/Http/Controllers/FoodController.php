@@ -12,28 +12,52 @@ class FoodController extends Controller
     public function index()
     {
         $foods = Food::all();
-    return response()->json($foods);
+        return response()->json($foods);
     }
 
     // Menyimpan makanan baru
     public function store(Request $request) {
+        \Log::info('Request Data:', $request->all());
+    
         $validated = $request->validate([
             'name' => 'required|max:255',
             'description' => 'required|max:255',
-            'price' => 'required|max:255',
-            'image' => 'required|image|max:2048', // Validation for image file
+            'price' => 'required|numeric',
+            'image' => 'required|image|max:2048', 
+        ]);
+    
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('images', 'public');
+            $validated['image'] = $path;
+        }
+    
+        $food = Food::create($validated);
+        \Log::info('Food Created:', $food->toArray());
+    
+        return Redirect::route('foods.index');
+    }
+    
+
+    // Mengedit makanan yang ada
+    public function update(Request $request, Food $food)
+    {
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'required|max:255',
+            'price' => 'required|numeric',
+            'image' => 'nullable|image|max:2048', // Image is optional during update
         ]);
 
+        // Perbarui gambar jika ada file baru yang diunggah
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public'); // Store image in 'public/mitra_logos'
+            $path = $request->file('image')->store('images', 'public');
             $validated['image'] = $path;
         }
 
-        Food::create($validated);
+        $food->update($validated);
 
-        return Redirect::route('foods.index');
+        return response()->json($food, 200); // Mengembalikan data yang diperbarui
     }
-
 
     // Menghapus makanan
     public function destroy(Food $food)
